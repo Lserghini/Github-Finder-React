@@ -1,37 +1,30 @@
-import React  from 'react';
+import React,{useContext}  from 'react';
 import UserItem from './UserItem'
-import PropTypes from 'prop-types'
 import {Spinner} from '../layout/Spinner'
+import githubContext from '../../context/github/githubContext'
 
 
-const gridStyle={
-    display:"grid",
-    gridTemplateColumns:"repeat(3,1fr)",
-    gridGap:'1rem'
-}
-
-function Users({users,isLoading}){
+function Users(){
+    const {users,isLoading}=useContext(githubContext);
 
     if(isLoading){
         return (<Spinner/>)
     }else{
         return (
-            <div className='container'>
-               <div style={gridStyle}>
-                   {users.map(user=>{
-                       return <UserItem key={user.login} user={user} />
-                   })}
-               </div>
-           </div>
+            <div className='grid-2 gridStyle'>
+                {users.map(user=>{
+                    return <UserItem key={user.login} user={user} />
+                })}
+            </div>
        );
     }
 }
 
 
-Users.propTypes={
-    users:PropTypes.array.isRequired,
-    isLoading:PropTypes.bool.isRequired
-}
+// Users.propTypes={
+//     users:PropTypes.array.isRequired,
+//     isLoading:PropTypes.bool.isRequired
+// }
 
 
 
